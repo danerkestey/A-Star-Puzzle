@@ -3,17 +3,26 @@ import numpy as np
 from itertools import chain
 
 
+def generateValidRandomMatrix(limit):
+    matrix = generateRandomMatrix(limit)
+    solve = isSolveable(matrix)
+    while not solve:
+        matrix = generateRandomMatrix(limit)
+        solve = isSolveable(matrix)
+    return matrix
+
+
 def isSolveable(mat):
+    # Checks to see if the matrix is solvable
     dp = disorderParameter(mat)
     if dp % 2 == 0:
         return True
     else:
         return False
 
-# Calculate the disorder parameter of the matrix
-
 
 def disorderParameter(mat):
+    # Calculate the disorder parameter of the matrix
     count = 0
     mat1D = list(chain.from_iterable(mat))
     for i in range(len(mat1D)):
@@ -25,7 +34,16 @@ def disorderParameter(mat):
     return count
 
 
+def generateSolvedMatrix(limit):
+    # Generate a solved nxn matrix
+    t = int(sqrt(limit + 1))
+    x = np.arange(0, limit + 1)
+    x = np.reshape(x, (t, t))
+    return x
+
+
 def generateRandomMatrix(limit):
+    # Generate a random nxn matrix
     t = int(sqrt(limit + 1))
     x = np.arange(0, limit + 1)
     np.random.shuffle(x)
@@ -34,6 +52,7 @@ def generateRandomMatrix(limit):
 
 
 def getCorrectInput():
+    # Makes sure that the input is a correct number to create a valid puzzle
     num = int(input("Enter the size of the matrix: "))
     while not sqrt(num + 1).is_integer() or num < 8:
         num = int(input("Incorrect size, please try again: "))
@@ -41,8 +60,6 @@ def getCorrectInput():
 
 
 num = getCorrectInput()
-matrix = generateRandomMatrix(num)
-solve = isSolveable(matrix)
-while not solve:
-    matrix = generateRandomMatrix(num)
-    solve = isSolveable(matrix)
+mat = generateValidRandomMatrix(num)
+print(mat)
+print(disorderParameter(mat))
