@@ -11,6 +11,7 @@ class State:
         self.j1 = getEmptySpacePosition(self.hash)[1]
         self.heuristic = heuristic
         self.solved = generateSolvedMatrix(self.size)
+        self.steps = 0
 
     def swap(self, i2, j2):
         tempMat = self.currentState
@@ -64,8 +65,15 @@ class State:
         return [h, temp]
 
     def solve(self):
-        pass
+        print(self.currentState)
+        print(self.solved)
+        while self.heuristic(self.currentState, self.size) != 0:
+            print(self.currentState)
+            t1, t2, t3, t3 = self.moveUp(), self.moveDown(), self.moveLeft(), self.moveRight()
+            nextState = sorted([t1, t2, t3, t3])[0]
+            self.steps += 1
+            self.currentState = nextState[1]
 
 
 state = State(8, h1)
-print(state.moveUp())
+state.solve()
