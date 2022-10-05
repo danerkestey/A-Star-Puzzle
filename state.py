@@ -1,4 +1,4 @@
-from puzzle.generate import *
+from utils.generate import *
 
 
 class State:
