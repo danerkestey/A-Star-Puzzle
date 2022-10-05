@@ -1,4 +1,5 @@
 from utils.generate import *
+from utils.heuristics import *
 
 
 class State:
@@ -9,6 +10,7 @@ class State:
         self.i1 = getEmptySpacePosition(self.hash)[0]
         self.j1 = getEmptySpacePosition(self.hash)[1]
         self.heuristic = heuristic
+        self.solved = generateSolvedMatrix(self.size)
 
     def swap(self, i2, j2):
         tempMat = self.currentState
@@ -18,53 +20,52 @@ class State:
         return tempMat
 
     def moveUp(self):
-        print(self.currentState)
         i2, j2 = self.i1 + 1, self.j1
         temp = self.currentState
-        dp = self.heuristic(temp)
+        h = self.heuristic(temp, self.size)
         if i2 < len(self.currentState):
             temp = self.swap(i2, j2)
-            dp = self.heuristic(temp)
+            h = self.heuristic(temp, self.size)
         else:
-            dp = float('inf')
-        return [dp, temp]
+            h = float('inf')
+        return [h, temp]
 
     def moveDown(self):
-        print(self.currentState)
         i2, j2 = self.i1 - 1, self.j1
         temp = self.currentState
-        dp = self.heuristic(temp)
+        h = self.heuristic(temp, self.size)
         if i2 >= 0:
             temp = self.swap(i2, j2)
-            dp = self.heuristic(temp)
+            h = self.heuristic(temp, self.size)
         else:
-            dp = float('inf')
-        return [dp, temp]
+            h = float('inf')
+        return [h, temp]
 
     def moveLeft(self):
-        print(self.currentState)
         i2, j2 = self.i1, self.j1 - 1
         temp = self.currentState
-        dp = self.heuristic(temp)
+        h = self.heuristic(temp, self.size)
         if j2 >= 0:
             temp = self.swap(i2, j2)
-            dp = self.heuristic(temp)
+            h = self.heuristic(temp, self.size)
         else:
-            dp = float('inf')
-        return [dp, temp]
+            h = float('inf')
+        return [h, temp]
 
     def moveRight(self):
-        print(self.currentState)
         i2, j2 = self.i1, self.j1 + 1
         temp = self.currentState
-        dp = self.heuristic(temp)
+        h = self.heuristic(temp, self.size)
         if j2 < len(self.currentState[0]):
             temp = self.swap(i2, j2)
-            dp = self.heuristic(temp)
+            h = self.heuristic(temp, self.size)
         else:
-            dp = float('inf')
-        return [dp, temp]
+            h = float('inf')
+        return [h, temp]
+
+    def solve(self):
+        pass
 
 
-state = State(8, disorderParameter)
+state = State(8, h1)
 print(state.moveUp())
