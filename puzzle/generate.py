@@ -3,7 +3,21 @@ import numpy as np
 from itertools import chain
 
 
+def getEmptySpacePosition(hash):
+    return hash[0]
+
+
+def generateHashMatrix(mat):
+    # Make a hashmap of the matrix to reduce position lookup time
+    hash = {}
+    for i in range(len(mat)):
+        for j in range(len(mat[0])):
+            hash[mat[i][j]] = (i, j)
+    return hash
+
+
 def generateValidRandomMatrix(limit):
+    # Generate a valid matrix that can be solved
     matrix = generateRandomMatrix(limit)
     solve = isSolveable(matrix)
     while not solve:
@@ -59,7 +73,7 @@ def getCorrectInput():
     return num
 
 
-num = getCorrectInput()
-mat = generateValidRandomMatrix(num)
-print(mat)
-print(disorderParameter(mat))
+# num = getCorrectInput()
+# mat = generateValidRandomMatrix(num)
+# print(mat)
+# print(disorderParameter(mat))
