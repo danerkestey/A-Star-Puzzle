@@ -2,7 +2,6 @@ from copy import deepcopy
 from utils.generate import *
 from utils.heuristics import *
 from utils.move import *
-from solve import *
 
 
 class State:
