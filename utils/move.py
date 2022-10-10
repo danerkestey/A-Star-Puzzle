@@ -114,3 +114,4 @@ def move(state, depth, heuristic):
         if t[0] == minF:
             bestMoves.append(t[1])
     return bestMoves
+    # return sorted(possibleMoves)

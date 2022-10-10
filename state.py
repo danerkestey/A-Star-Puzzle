@@ -14,7 +14,7 @@ class State:
         self.steps = 0
         self.seenStates = []
 
-    def testPrint(self, arr):
+    def turnToString(self, arr):
         t = ""
         for level in arr:
             temp = "["
@@ -29,33 +29,49 @@ class State:
         seen = deepcopy(self.seenStates)
         depth = deepcopy(self.depth)
         steps = deepcopy(self.steps)
-        seen.append(self.testPrint(states[0].tolist()))
+        # Old version: uses array, both don't work
+        seen.append(self.turnToString(states[0].tolist()))
         seenD = {}
-        seenD[self.testPrint(states[0].tolist())] = ""
-        minF = 0
-        # print(states[0])
+        seenD[self.turnToString(states[0].tolist())] = ""
+
         while self.heuristic(states[0], self.size) != 0:
             # for _ in range(3):
-            for state in states:
-                bestMoves = move(deepcopy(state), depth, self.heuristic)
+            state = states.pop(0)
+            bestMoves = move(deepcopy(state), depth, self.heuristic)
 
-                print(len(bestMoves))
-                nextState = []
-                for m in bestMoves:
-                    sM = self.testPrint(m)
-                    if sM not in seenD:
-                        print("Ayoo")
-                        nextState.append(m)
-                        seenD[sM] = ""
+            for m in bestMoves:
+                sM = self.turnToString(m)
+                if sM not in seenD:
+                    states.append(m)
+                    seenD[sM] = ""
 
-                print(len(nextState))
-                if len(nextState) > 0:
-                    states = deepcopy(nextState)
+            steps += 1
+            depth += 1
+            # if len(nextState) > 0:
+            #     states = deepcopy(nextState)
 
-                print(states)
-                print("-------------")
-                steps += 1
-                depth += 1
+            print(states)
+            print("-------------")
+
+    def solveD(self):
+        state = deepcopy(self.currentState[0])
+        depth = deepcopy(self.depth)
+        steps = deepcopy(self.steps)
+        seenD = {}
+        seenD[self.testPrint(state.tolist())] = ""
+
+        while self.heuristic(state, self.size) != 0:
+            bestMoves = move(deepcopy(state), depth, self.heuristic)
+            print(len(bestMoves))
+            for m in bestMoves:
+                sM = self.testPrint(m[1])
+                if sM not in seenD:
+                    state = deepcopy(m[1])
+                    seenD[sM] = ""
+                    break
+            print(state)
+            steps += 1
+            depth += 1
 
 
 state = State(8, h1)
