@@ -2,6 +2,7 @@ from copy import deepcopy
 from utils.generate import *
 from utils.heuristics import *
 from utils.move import *
+from solve import *
 
 
 class State:
@@ -29,32 +30,26 @@ class State:
         seen = deepcopy(self.seenStates)
         depth = deepcopy(self.depth)
         steps = deepcopy(self.steps)
-        seen.append(states[0].tolist())
+        seen.append(self.testPrint(states[0].tolist()))
+        seenD = {}
+        seenD[self.testPrint(states[0].tolist())] = ""
         minF = 0
         # print(states[0])
-        while self.heuristic(states[0], self.size) != 0:
-            # for _ in range(3):
+        # while self.heuristic(states[0], self.size) != 0:
+        for _ in range(3):
             for state in states:
-                t1 = moveUp(deepcopy(state), depth, self.heuristic)
-                t2 = moveDown(deepcopy(state), depth, self.heuristic)
-                t3 = moveLeft(deepcopy(state), depth, self.heuristic)
-                t4 = moveRight(deepcopy(state), depth, self.heuristic)
+                bestMoves = move(deepcopy(state), depth, self.heuristic)
 
-                fValues = []
-
-                for t in [t1, t2, t3, t4]:
-                    if t[1] not in seen:
-                        fValues.append(t[0])
-                        seen.append(t[1])
-
-                if len(fValues) > 0:
-                    minF = min(fValues)
-
+                print(len(bestMoves))
                 nextState = []
-                for t in [t1, t2, t3, t4]:
-                    if t[0] == minF:
-                        nextState.append(t[1])
+                for m in bestMoves:
+                    sM = self.testPrint(m)
+                    if sM not in seenD:
+                        print("Ayoo")
+                        nextState.append(m)
+                        seenD[sM] = ""
 
+                print(len(nextState))
                 if len(nextState) > 0:
                     states = deepcopy(nextState)
 
@@ -65,4 +60,5 @@ class State:
 
 
 state = State(8, h1)
+# solve(state.currentState, state.size, state.heuristic)
 state.solve()

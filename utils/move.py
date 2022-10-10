@@ -1,5 +1,6 @@
 from utils.generate import *
 from utils.heuristics import *
+import math
 
 
 def getUniqueIdentifier(state, depth):
@@ -90,3 +91,26 @@ def moveRight(state, depth, heuristic):
         return [f, state.tolist()]
     else:
         return [f, state]
+
+
+def move(state, depth, heuristic):
+    t1 = moveUp(state, depth, heuristic)
+    t2 = moveDown(state, depth, heuristic)
+    t3 = moveLeft(state, depth, heuristic)
+    t4 = moveRight(state, depth, heuristic)
+
+    bestMoves = []
+    possibleMoves = []
+    fValues = []
+    for t in [t1, t2, t3, t4]:
+        if not math.isinf(t[0]):
+            possibleMoves.append(t)
+            fValues.append(t[0])
+
+    # print(fValues)
+    minF = min(fValues)
+    # print("min f: {}".format(minF))
+    for t in possibleMoves:
+        if t[0] == minF:
+            bestMoves.append(t[1])
+    return bestMoves
