@@ -35,8 +35,8 @@ class State:
         seenD[self.testPrint(states[0].tolist())] = ""
         minF = 0
         # print(states[0])
-        # while self.heuristic(states[0], self.size) != 0:
-        for _ in range(3):
+        while self.heuristic(states[0], self.size) != 0:
+            # for _ in range(3):
             for state in states:
                 bestMoves = move(deepcopy(state), depth, self.heuristic)
 
