@@ -39,39 +39,21 @@ class State:
             state = states.pop(0)
             bestMoves = move(deepcopy(state), depth, self.heuristic)
 
+            print(bestMoves)
             for m in bestMoves:
                 sM = self.turnToString(m)
-                if sM not in seenD:
+                if sM not in seen:
                     states.append(m)
-                    seenD[sM] = ""
+                    # seenD[sM] = ""
+                    seen.append(sM)
 
             steps += 1
             depth += 1
             # if len(nextState) > 0:
             #     states = deepcopy(nextState)
 
-            print(states)
+            print(len(seen))
             print("-------------")
-
-    def solveD(self):
-        state = deepcopy(self.currentState[0])
-        depth = deepcopy(self.depth)
-        steps = deepcopy(self.steps)
-        seenD = {}
-        seenD[self.testPrint(state.tolist())] = ""
-
-        while self.heuristic(state, self.size) != 0:
-            bestMoves = move(deepcopy(state), depth, self.heuristic)
-            print(len(bestMoves))
-            for m in bestMoves:
-                sM = self.testPrint(m[1])
-                if sM not in seenD:
-                    state = deepcopy(m[1])
-                    seenD[sM] = ""
-                    break
-            print(state)
-            steps += 1
-            depth += 1
 
 
 state = State(8, h1)
