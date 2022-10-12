@@ -39,11 +39,7 @@ class State:
         #generateDebugTable(states, seen, depth, steps)
 
 
-def generateDebugTable(states, seen, depth, steps):
-    print("Board States:\n" + printBoardString(states))
-    print("seen:\n" + str(seen))
-    print("depth:\n" + str(depth))
-    print("steps:\n" + str(steps))
+
 
 
 state = State(8, h1)
