@@ -33,7 +33,12 @@ class State:
         print(printBoardString(states) + '\n')
 
         print("Possible Moves: ")
-        print(printBoardString(move(states[0])))
+        possibleMoves = move(states[0])
+        for m in possibleMoves:
+            fValue = getFValue(deepcopy(m), 0, self.heuristic)
+            print("Move: ", end="")
+            print(m, end=", ")
+            print(fValue)
 
         #print("\n\n::::::Debugging table:::::\n")
         #generateDebugTable(states, seen, depth, steps)
