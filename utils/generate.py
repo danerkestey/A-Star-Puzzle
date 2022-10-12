@@ -93,6 +93,14 @@ def printBoardString(matrix):
             
     return text
 
+
+def generateDebugTable(states, seen, depth, steps):
+    print("Board States:\n" + printBoardString(states))
+    print("seen:\n" + str(seen))
+    print("depth:\n" + str(depth))
+    print("steps:\n" + str(steps))
+
+
 # num = getCorrectInput()
 # mat = generateValidRandomMatrix(num)
 # print(mat)
