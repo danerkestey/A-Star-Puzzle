@@ -1,9 +1,13 @@
 from utils.generate import *
 
 
+def getFValue(state, g, heuristic):
+    size = len(state) * len(state[0]) - 1
+    h = heuristic(state, size)
+    return g + h
+
+
 def h1(stateMatrix, size):
-    print(printBoardString(stateMatrix) + '\n')
-    print("size: " + str(size))
     # The first heuristic: Number of misplaced tiles
     hash = generateHashMatrix(stateMatrix)
     t = generateSolvedMatrix(size)
@@ -15,5 +19,4 @@ def h1(stateMatrix, size):
         for j in range(len(stateMatrix[0])):
             if stateMatrix[i][j] != t[i][j]:
                 count += 1
-    return count 
-
+    return count
