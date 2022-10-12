@@ -3,13 +3,13 @@ from utils.generate import *
 from utils.heuristics import *
 from utils.move import *
 
-DEFAULT_GAME = [[[1, 0, 2],
-                [3, 4, 5],
-                [6, 7, 8]]]
-
-DEFAULT_GAME2 = [[[1, 5, 2],
-                  [3, 0, 4],
+DEFAULT_GAME2 = [[[1, 0, 2],
+                  [3, 4, 5],
                   [6, 7, 8]]]
+
+DEFAULT_GAME = [[[1, 5, 2],
+                 [3, 0, 4],
+                 [6, 7, 8]]]
 
 
 class State:
@@ -43,10 +43,42 @@ class State:
         #print("\n\n::::::Debugging table:::::\n")
         #generateDebugTable(states, seen, depth, steps)
 
+    def solveD(self):
+        states = deepcopy(self.currentState)
+        previousState = None
+        size = self.size
+        depth = 0
+
+        while self.heuristic(states[0], size) != 0:
+            state = states.pop(0)
+            fValues = []
+            possibleMoves = move(state)
+
+            for m in possibleMoves:
+                f = getFValue(deepcopy(m), depth, self.heuristic)
+                fValues.append(f)
+
+            minF = min(fValues)
+            bestMoves = []
+
+            for i, f in enumerate(fValues):
+                if f == minF and possibleMoves[i] != previousState:
+                    bestMoves.append(possibleMoves[i])
+
+            previousState = state
+            states.extend(bestMoves)
+            depth += 1
+
+            print("States: {}".format(states))
 
 
+def generateDebugTable(states, seen, depth, steps):
+    print("Board States:\n" + printBoardString(states))
+    print("seen:\n" + str(seen))
+    print("depth:\n" + str(depth))
+    print("steps:\n" + str(steps))
 
 
 state = State(8, h1)
 #solve(state.currentState, state.size, state.heuristic)
-state.solve()
+state.solveD()
