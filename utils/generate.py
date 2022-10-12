@@ -73,6 +73,26 @@ def getCorrectInput():
     return num
 
 
+def printBoard(matrix):
+    for i in range(len(matrix)):
+        for j in matrix[i]:
+            print('{}'.format(j), end='\t')
+            print()
+    
+    return
+
+
+def printBoardString(matrix):
+    text = ''
+    #traverse the matrix and append the char
+    for i in matrix:
+        for j in i:
+            text += str(j)
+            text += '\n'
+        text += '\n'
+            
+    return text
+
 # num = getCorrectInput()
 # mat = generateValidRandomMatrix(num)
 # print(mat)

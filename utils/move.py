@@ -107,11 +107,15 @@ def move(state, depth, heuristic):
             possibleMoves.append(t)
             fValues.append(t[0])
 
+    print(possibleMoves)
+    
     # print(fValues)
     minF = min(fValues)
     # print("min f: {}".format(minF))
     for t in possibleMoves:
         if t[0] == minF:
             bestMoves.append(t[1])
+
     return bestMoves
+    # return bestMoves
     # return sorted(possibleMoves)

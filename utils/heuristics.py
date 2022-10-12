@@ -13,4 +13,5 @@ def h1(mat, size):
         for j in range(len(mat[0])):
             if mat[i][j] != t[i][j]:
                 count += 1
-    return count
+    return count 
+
