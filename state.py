@@ -3,13 +3,13 @@ from utils.generate import *
 from utils.heuristics import *
 from utils.move import *
 
-DEFAULT_GAME = [[[1, 0, 2], 
-                [3, 4, 5], 
+DEFAULT_GAME = [[[1, 0, 2],
+                [3, 4, 5],
                 [6, 7, 8]]]
-                
-DEFAULT_GAME2 = [[[1, 5, 2], 
-                [3, 0, 4], 
-                [6, 7, 8]]]
+
+DEFAULT_GAME2 = [[[1, 5, 2],
+                  [3, 0, 4],
+                  [6, 7, 8]]]
 
 
 class State:
@@ -32,13 +32,11 @@ class State:
         print("Location of 0: " + str(getRequiredValues(states[0])) + '\n')
         print(printBoardString(states) + '\n')
 
-        print(printBoardString(move(states[0], depth, self.heuristic)))
-
+        print("Possible Moves: ")
+        print(printBoardString(move(states[0])))
 
         #print("\n\n::::::Debugging table:::::\n")
         #generateDebugTable(states, seen, depth, steps)
-
-
 
 
 def generateDebugTable(states, seen, depth, steps):
@@ -46,6 +44,7 @@ def generateDebugTable(states, seen, depth, steps):
     print("seen:\n" + str(seen))
     print("depth:\n" + str(depth))
     print("steps:\n" + str(steps))
+
 
 state = State(8, h1)
 #solve(state.currentState, state.size, state.heuristic)
