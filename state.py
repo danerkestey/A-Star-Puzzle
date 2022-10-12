@@ -49,7 +49,9 @@ class State:
         size = self.size
         depth = 0
 
-        while self.heuristic(states[0], size) != 0:
+        stop = 0
+
+        while self.heuristic(states[0], size) != 0 or stop!=15:
             state = states.pop(0)
             fValues = []
             possibleMoves = move(state)
@@ -58,7 +60,9 @@ class State:
                 f = getFValue(deepcopy(m), depth, self.heuristic)
                 fValues.append(f)
 
+            print(fValues)
             minF = min(fValues)
+            print("minF: " + str(minF))
             bestMoves = []
 
             for i, f in enumerate(fValues):
@@ -66,10 +70,11 @@ class State:
                     bestMoves.append(possibleMoves[i])
 
             previousState = state
-            states.extend(bestMoves)
+            #states.extend(bestMoves)
+            states = bestMoves
             depth += 1
-
-            print("States: {}".format(states))
+            stop += 1
+            print("States:\n{}".format(printBoardString(states)))
 
 
 def generateDebugTable(states, seen, depth, steps):
