@@ -18,21 +18,21 @@ def swap(state, i1, j1, i2, j2):
 
 def moveUp(state):
     i1, j1 = getRequiredValues(state)
-    i2, j2 = i1 + 1, j1
-    if i2 < len(state):
-        swap(state, i1, j1, i2, j2)
-        return state
-
-
-def moveDown(state):
-    i1, j1 = getRequiredValues(state)
     i2, j2 = i1 - 1, j1
     if i2 >= 0:
         swap(state, i1, j1, i2, j2)
         return state
 
 
-def moveLeft(state):
+def moveDown(state):
+    i1, j1 = getRequiredValues(state)
+    i2, j2 = i1 + 1, j1
+    if i2 < len(state):
+        swap(state, i1, j1, i2, j2)
+        return state
+
+
+def moveRight(state):
     i1, j1 = getRequiredValues(state)
     i2, j2 = i1, j1 - 1
     if j2 >= 0:
@@ -40,7 +40,7 @@ def moveLeft(state):
         return state
 
 
-def moveRight(state):
+def moveLeft(state):
     i1, j1 = getRequiredValues(state)
     i2, j2 = i1, j1 + 1
     if j2 < len(state[0]):
