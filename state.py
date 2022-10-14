@@ -25,39 +25,23 @@ class State:
 
     def solve(self):
         states = deepcopy(self.currentState)
-        seen = deepcopy(self.seenStates)
-        depth = deepcopy(self.depth)
-        steps = deepcopy(self.steps)
-
-        print("Location of 0: " + str(getRequiredValues(states[0])) + '\n')
-        print(printBoardString(states) + '\n')
-
-        print("Possible Moves: ")
-        possibleMoves = move(states[0])
-        for m in possibleMoves:
-            fValue = getFValue(deepcopy(m), 0, self.heuristic)
-            print("Move: ", end="")
-            print(m, end=", ")
-            print(fValue)
-
-        #print("\n\n::::::Debugging table:::::\n")
-        #generateDebugTable(states, seen, depth, steps)
-
-    def solveD(self):
-        states = deepcopy(self.currentState)
         previousState = None
         size = self.size
         depth = 0
 
         stop = 0
 
-        while self.heuristic(states[0], size) != 0 or stop!=15:
+        while self.heuristic(states[0], size) != 0 and stop!=20:
             state = states.pop(0)
             fValues = []
             possibleMoves = move(state)
 
-            for m in possibleMoves:
-                f = getFValue(deepcopy(m), depth, self.heuristic)
+            #print(possibleMoves)
+
+            #calculate misplaced tiles
+            for possibleMove in possibleMoves:
+                print(possibleMove)
+                f = getFValue(deepcopy(possibleMove), depth, self.heuristic)
                 fValues.append(f)
 
             print(fValues)
@@ -66,14 +50,68 @@ class State:
             bestMoves = []
 
             for i, f in enumerate(fValues):
-                if f == minF and possibleMoves[i] != previousState:
+                if f == minF: #and possibleMoves[i] != previousState:
+                    print('asd')
                     bestMoves.append(possibleMoves[i])
+
+            print(bestMoves)
 
             previousState = state
             #states.extend(bestMoves)
             states = bestMoves
-            depth += 1
+            #depth += 1
             stop += 1
+            print(stop)
+            print("States:\n{}".format(printBoardString(states)))
+
+
+
+    def solveD(self):
+        states = deepcopy(self.currentState)
+        previousState = None
+        size = self.size
+        depth = 0
+
+        print("Original State: {}".format(DEFAULT_GAME))
+        stop = 0   
+
+        while self.heuristic(states[0], size) != 0 and stop!=20:
+            state = states.pop(0)
+            possibleMoves = move(state)
+
+            #print(possibleMoves)
+
+            #get Manhattan distances
+            manhattanValues = []
+            for possibleMove in possibleMoves:
+                #print(possibleMove)
+                manhattanValues.append(getManhattanDistance(deepcopy(possibleMove), self.solved))
+
+            print("manhattanValues: {}".format(manhattanValues))
+
+            minManhattan = min(manhattanValues)
+            print("min manhattan: " + str(minManhattan))
+            bestMoves = []
+
+            for i, val in enumerate(manhattanValues):
+                if val == minManhattan: #and possibleMoves[i] != previousState:
+                    bestMoves.append(possibleMoves[i])
+
+
+            print("bestmoves: {} ".format(bestMoves))
+
+            previousState = state
+            #states.extend(bestMoves)
+            
+            #see if any of our best moves is the end step
+            npbestMoves = np.array(bestMoves)
+            if (np.argwhere(npbestMoves == solved)):
+                break
+
+            states = bestMoves
+            #depth += 1
+            stop += 1
+            print(stop)
             print("States:\n{}".format(printBoardString(states)))
 
 
