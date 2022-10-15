@@ -49,7 +49,7 @@ def generateRandomMatrix(limit):
     x = np.arange(0, limit + 1)
     np.random.shuffle(x)
     x = np.reshape(x, (t, t))
-    return x
+    return x.tolist()
 
 
 def getCorrectInput():
@@ -70,7 +70,7 @@ def printBoard(matrix):
 
 def printBoardString(matrix):
     text = ''
-    #traverse the matrix and append the char
+    # traverse the matrix and append the char
     for i in matrix:
         for j in i:
             text += str(j)
