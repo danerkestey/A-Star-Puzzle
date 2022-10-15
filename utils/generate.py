@@ -5,34 +5,59 @@ from itertools import chain
 
 def generateValidRandomMatrix(limit):
     # Generate a valid matrix that can be solved
-    matrix = generateRandomMatrix(limit)
-    solve = isSolveable(matrix)
-    while not solve:
-        matrix = generateRandomMatrix(limit)
-        solve = isSolveable(matrix)
-    return matrix
-
-
-def isSolveable(mat):
-    # Checks to see if the matrix is solvable
+    mat = generateRandomMatrix(limit)
     dp = disorderParameter(mat)
-    if dp % 2 == 0:
-        return True
+    N = len(mat)
+
+    if N % 2 == 1:
+        while not isSolvable(mat):
+            mat = generateRandomMatrix(limit)
+            dp = disorderParameter(mat)
     else:
-        return False
+        while isSolvable(mat):
+            mat = generateRandomMatrix(limit)
+            dp = disorderParameter(mat)
+
+    print(dp)
+    return mat
+
+
+def isSolvable(puzzle):
+    N = len(puzzle)
+    dp = disorderParameter(puzzle)
+
+    if N % 2 == 1:
+        return dp % 2 == 0
+    else:
+        pos = findXPosition(puzzle)
+        if pos % 2 == 1:
+            return dp % 2 == 0
+        else:
+            return dp % 2 == 1
+
+
+def findXPosition(puzzle):
+    N = len(puzzle)
+    # start from bottom-right corner of matrix
+    for i in range(N - 1, -1, -1):
+        for j in range(N - 1, -1, -1):
+            if (puzzle[i][j] == 0):
+                return N - i
 
 
 def disorderParameter(mat):
     # Calculate the disorder parameter of the matrix
-    count = 0
-    mat1D = list(chain.from_iterable(mat))
-    for i in range(len(mat1D)):
-        if i + 1 < len(mat1D):
-            for j in range(i + 1, len(mat1D)):
-                if mat1D[i] > mat1D[j]:
-                    count += 1
-            count -= 1
-    return count
+    N = len(mat)
+    arr = list(chain.from_iterable(mat))
+    inv_count = 0
+    for i in range(N * N - 1):
+        for j in range(i + 1, N * N):
+            # count pairs(arr[i], arr[j]) such that
+            # i < j and arr[i] > arr[j]
+            if (arr[j] and arr[i] and arr[i] > arr[j]):
+                inv_count += 1
+
+    return inv_count
 
 
 def generateSolvedMatrix(limit):
