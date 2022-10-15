@@ -69,7 +69,7 @@ class PuzzleSolver:
         # append the initial state to the available states
         self.availableStates.append(initialState)
 
-        while self.steps != 40000:
+        while self.steps != 10000:
 
             """ print("\n--------Iteration Available state {}:--------".format(self.steps))
             for i in self.availableStates:
@@ -118,5 +118,5 @@ class PuzzleSolver:
 
 
 '''Runnable'''
-puzzle = PuzzleSolver(24)
+puzzle = PuzzleSolver(15)
 puzzle.solve()
