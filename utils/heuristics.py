@@ -26,6 +26,7 @@ def getFValue(state, solved):
     return manhattanValue + misplacedTiles
     
 
+
 #### testing below ####
 """ testState = [[1, 5, 2],
             [3, 0, 4],

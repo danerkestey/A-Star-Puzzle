@@ -73,7 +73,7 @@ class PuzzleSolver:
 
             """ print("\n--------Iteration Available state {}:--------".format(self.steps))
             for i in self.availableStates:
-                print("Matrix: {}\n fval: {}".format(i.matrix, i.fvalue))
+                print("Matrix: {}\n fval: {}".format(i.matrix, i.fvalue)) """
 
 
             #print("\n--------Iteration {}:--------".format(stop))
