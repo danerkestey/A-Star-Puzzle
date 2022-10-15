@@ -3,19 +3,6 @@ import numpy as np
 from itertools import chain
 
 
-def getEmptySpacePosition(hash):
-    return hash[0]
-
-
-def generateHashMatrix(mat):
-    # Make a hashmap of the matrix to reduce position lookup time
-    hash = {}
-    for i in range(len(mat)):
-        for j in range(len(mat[0])):
-            hash[mat[i][j]] = (i, j)
-    return hash
-
-
 def generateValidRandomMatrix(limit):
     # Generate a valid matrix that can be solved
     matrix = generateRandomMatrix(limit)
@@ -78,7 +65,6 @@ def printBoard(matrix):
         for j in matrix[i]:
             print('{}'.format(j), end='\t')
             print()
-    
     return
 
 
@@ -90,17 +76,10 @@ def printBoardString(matrix):
             text += str(j)
             text += '\n'
         text += '\n'
-            
     return text
 
 
-def generateDebugTable(states, seen, depth, steps):
-    print("Board States:\n" + printBoardString(states))
-    print("seen:\n" + str(seen))
-    print("depth:\n" + str(depth))
-    print("steps:\n" + str(steps))
-
-
+#### Testing ####
 # num = getCorrectInput()
 # mat = generateValidRandomMatrix(num)
 # print(mat)
