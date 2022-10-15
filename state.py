@@ -53,8 +53,7 @@ class PuzzleSolver:
     def solve(self):
         randomMatrix = generateValidRandomMatrix(self.size)
         initialState = State(randomMatrix, 0, 0)
-        initialState.fvalue = getManhattanDistance(
-            deepcopy(initialState.matrix), self.solved)
+        initialState.fvalue = getFValue(deepcopy(initialState.matrix), self.solved)
         print("initial state matrix: {}\nfvalue {}\ndepth {}\n".format(
             initialState.matrix, initialState.fvalue, initialState.depth))
 
@@ -107,7 +106,7 @@ class PuzzleSolver:
             
             #sort the available states by the smallest fvalue
             self.availableStates.sort(key=lambda x: x.fvalue, reverse=False)
-            stop+=1
+            self.steps+=1
 
             """ print('\nafter delete & sort:')
             for i in self.availableStates:
@@ -115,6 +114,7 @@ class PuzzleSolver:
 
         print(currState.matrix)
         print(self.steps)
+        print(len(self.availableStates) + len(self.travelledStates))
 
 
 '''Runnable'''
