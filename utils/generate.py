@@ -38,7 +38,6 @@ def isSolvable(puzzle):
 
 def findXPosition(puzzle):
     N = len(puzzle)
-    # start from bottom-right corner of matrix
     for i in range(N - 1, -1, -1):
         for j in range(N - 1, -1, -1):
             if (puzzle[i][j] == 0):
@@ -52,9 +51,7 @@ def disorderParameter(mat):
     inv_count = 0
     for i in range(N * N - 1):
         for j in range(i + 1, N * N):
-            # count pairs(arr[i], arr[j]) such that
-            # i < j and arr[i] > arr[j]
-            if (arr[j] and arr[i] and arr[i] > arr[j]):
+            if arr[j] and arr[i] and arr[i] > arr[j]:
                 inv_count += 1
 
     return inv_count

@@ -46,7 +46,6 @@ class State:
 class PuzzleSolver:
     def __init__(self, size):
         self.size = size
-        #self.currentState = [generateValidRandomMatrix(self.size)]
         self.solved = generateSolvedMatrix(self.size)
         self.steps = 0  # used to count the number of steps across path
         self.travelledStates = []
@@ -58,9 +57,6 @@ class PuzzleSolver:
         initialState.fvalue = getFValue(
             deepcopy(initialState.matrix), self.solved)
 
-        #initialState = State(DEFAULT_GAME1, 0, 0)
-        #initialState = State(DEFAULT_GAME2, 0, 0)
-
         initialState.fvalue = getFValue(
             deepcopy(initialState.matrix), self.solved)
         print("initial state matrix: {}\nfvalue {}\ndepth {}\n".format(
@@ -70,15 +66,9 @@ class PuzzleSolver:
         self.availableStates.append(initialState)
 
         while self.steps != 10000:
-
-            """ print("\n--------Iteration Available state {}:--------".format(self.steps))
-            for i in self.availableStates:
-                print("Matrix: {}\n fval: {}".format(i.matrix, i.fvalue)) """
-
-            #print("\n--------Iteration {}:--------".format(stop))
             currState = self.availableStates[0]
 
-            if currState.fvalue == 0:  # if the manhatten value is 0 we are done
+            if currState.fvalue == 0:  # if the f value is 0 we are done
                 break
 
             # print(currState.matrix)
@@ -96,10 +86,6 @@ class PuzzleSolver:
                 if len(existingState) == 0:
                     self.availableStates.append(newState)
 
-            """ print('Before delete:')
-            for i in self.availableStates:
-                print("Matrix: {}\n fval: {}".format(i.matrix, i.fvalue)) """
-
             # remove the currState from the available states (already travelled), as well as the duplicate move generated
             del self.availableStates[0]
             self.travelledStates.append(currState)
@@ -107,10 +93,6 @@ class PuzzleSolver:
             # sort the available states by the smallest fvalue
             self.availableStates.sort(key=lambda x: x.fvalue, reverse=False)
             self.steps += 1
-
-            """ print('\nafter delete & sort:')
-            for i in self.availableStates:
-                print("Matrix: {}\n fval: {}".format(i.matrix, i.fvalue)) """
 
         print(currState.matrix)
         print(self.steps)
