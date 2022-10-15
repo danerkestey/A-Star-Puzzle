@@ -7,112 +7,95 @@ DEFAULT_GAME2 = [[[1, 0, 2],
                   [3, 4, 5],
                   [6, 7, 8]]]
 
-DEFAULT_GAME = [[[1, 5, 2],
-                 [3, 0, 4],
-                 [6, 7, 8]]]
+DEFAULT_GAME_NOT_SOLVABLE = [[1, 5, 2],
+                            [3, 0, 4],
+                            [6, 7, 8]]
+
+DEFAULT_GAME =[[0, 1, 3],
+                [4, 2, 5],
+                [7, 8, 6]]
 
 
 class State:
+    def __init__(self, matrix, depth, fvalue):
+        #init the each state that has its matrix, current tree depth and fvalue
+        self.matrix = matrix
+        self.depth = depth
+        self.fvalue = fvalue
+
+
+class PuzzleSolver:
     def __init__(self, size, heuristic):
         self.size = size
         #self.currentState = [generateValidRandomMatrix(self.size)]
-        self.currentState = DEFAULT_GAME
         self.heuristic = heuristic  # h(n)
-        self.depth = 0  # g(n)
         self.solved = generateSolvedMatrix(self.size)
-        self.steps = 0
-        self.seenStates = []
+        self.steps = 0 #used to count the number of steps across path
+        self.travelledStates = []
+        self.availableStates = []
+
 
     def solve(self):
-        states = deepcopy(self.currentState)
-        previousState = None
+
+        initialState = State(DEFAULT_GAME, 0, 0)
+        initialState.fvalue = getManhattanDistance(deepcopy(initialState.matrix), self.solved)
+        print("initial state matrix: {}\nfvalue {}\ndepth {}\n".format(initialState.matrix, initialState.fvalue, initialState.depth))
+
+        #append the initial state to the available states
+        self.availableStates.append(initialState)
+
         size = self.size
-        depth = 0
 
         stop = 0
+        while stop!=10000:
 
-        while self.heuristic(states[0], size) != 0 and stop!=20:
-            state = states.pop(0)
-            fValues = []
-            possibleMoves = move(state)
-
-            #print(possibleMoves)
-
-            #calculate misplaced tiles
-            for possibleMove in possibleMoves:
-                print(possibleMove)
-                f = getFValue(deepcopy(possibleMove), depth, self.heuristic)
-                fValues.append(f)
-
-            print(fValues)
-            minF = min(fValues)
-            print("minF: " + str(minF))
-            bestMoves = []
-
-            for i, f in enumerate(fValues):
-                if f == minF: #and possibleMoves[i] != previousState:
-                    print('asd')
-                    bestMoves.append(possibleMoves[i])
-
-            print(bestMoves)
-
-            previousState = state
-            #states.extend(bestMoves)
-            states = bestMoves
-            #depth += 1
-            stop += 1
-            print(stop)
-            print("States:\n{}".format(printBoardString(states)))
+            """ print("\n--------Iteration Available state {}:--------".format(stop))
+            for i in self.availableStates:
+                print("Matrix: {}\n fval: {}".format(i.matrix, i.fvalue)) """
 
 
-
-    def solveD(self):
-        states = deepcopy(self.currentState)
-        previousState = None
-        size = self.size
-        depth = 0
-
-        print("Original State: {}".format(DEFAULT_GAME))
-        stop = 0   
-
-        while self.heuristic(states[0], size) != 0 and stop!=20:
-            state = states.pop(0)
-            possibleMoves = move(state)
-
-            #print(possibleMoves)
-
-            #get Manhattan distances
-            manhattanValues = []
-            for possibleMove in possibleMoves:
-                #print(possibleMove)
-                manhattanValues.append(getManhattanDistance(deepcopy(possibleMove), self.solved))
-
-            print("manhattanValues: {}".format(manhattanValues))
-
-            minManhattan = min(manhattanValues)
-            print("min manhattan: " + str(minManhattan))
-            bestMoves = []
-
-            for i, val in enumerate(manhattanValues):
-                if val == minManhattan: #and possibleMoves[i] != previousState:
-                    bestMoves.append(possibleMoves[i])
-
-
-            print("bestmoves: {} ".format(bestMoves))
-
-            previousState = state
-            #states.extend(bestMoves)
+            #print("\n--------Iteration {}:--------".format(stop))
+            currState = self.availableStates[0]
             
-            #see if any of our best moves is the end step
-            npbestMoves = np.array(bestMoves)
-            if (np.argwhere(npbestMoves == solved)):
+            if currState.fvalue == 0: #if the manhatten value is 0 we are done
                 break
+            
+            #print(currState.matrix)
 
-            states = bestMoves
-            #depth += 1
-            stop += 1
-            print(stop)
-            print("States:\n{}".format(printBoardString(states)))
+            #get all next states and append new state objects to the availableStates list
+            possibleMoves = move(currState.matrix)
+            for moves in possibleMoves:
+                newState = State(moves, deepcopy(currState).depth+1, 0)
+                newState.fvalue = getManhattanDistance(deepcopy(newState.matrix), self.solved)
+
+                #if we have already travelled the state, don't put it in available states.
+                existingState = [state for state in self.travelledStates if state.matrix == newState.matrix]                
+                if len(existingState) == 0:
+                    self.availableStates.append(newState)
+                
+
+            
+            #remove the currState from the available states (already travelled), as well as the duplicate move generated
+
+            """ print('Before delete:')
+            for i in self.availableStates:
+                print("Matrix: {}\n fval: {}".format(i.matrix, i.fvalue)) """
+
+            del self.availableStates[0]
+            self.travelledStates.append(currState)
+            
+
+            #sort the available states by the smallest fvalue
+            self.availableStates.sort(key=lambda x: x.fvalue, reverse=False)
+            stop+=1
+
+            """ print('\nafter delete & sort:')
+            for i in self.availableStates:
+                print("Matrix: {}\n fval: {}".format(i.matrix, i.fvalue)) """
+
+        print(currState.matrix)
+        print(stop)
+        print('good job Chandler!')
 
 
 def generateDebugTable(states, seen, depth, steps):
@@ -122,6 +105,6 @@ def generateDebugTable(states, seen, depth, steps):
     print("steps:\n" + str(steps))
 
 
-state = State(8, h1)
+puzzle = PuzzleSolver(8, h1)
 #solve(state.currentState, state.size, state.heuristic)
-state.solveD()
+puzzle.solve()
