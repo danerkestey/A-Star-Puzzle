@@ -34,6 +34,16 @@ def h1(state, solved):
 
     return misplacedTiles
 
+    # length = len(state)
+    # misplacedTiles = 0
+    # for i in range(0, length):
+    #     for j in range(0, length):
+    #         if state[i][j] != 0:
+    #             if (state[i][j] != solved[i][j]):
+    #                 misplacedTiles += 1
+
+    # return misplacedTiles
+
 
 def h2(state, solved):
     # by converting the array to an np array we can grab the index of a 2d array with ease
@@ -66,7 +76,7 @@ def h3(state, solved):
     npStateArray = np.array(state)
     npSolvedArray = np.array(solved)
 
-    eucledDistances = []
+    euclideanDistances = []
 
     for col in range(len(npStateArray[0])):
         for row in range(len(npStateArray[0])):
@@ -77,9 +87,9 @@ def h3(state, solved):
                     npSolvedArray == npStateArray[col][row])
 
                 # formula sqrt((colcurr - colgoal)^2 + (rowcurr - rowgoal)^2)
-                eucledDistances.append(np.sqrt(
+                euclideanDistances.append(np.sqrt(
                     (currPosition[0][0] - goalPosition[0][0])**2 + (currPosition[0][1] - goalPosition[0][1])**2))
 
-    eucledSum = sum(eucledDistances)
+    euclideanSum = sum(euclideanDistances)
 
-    return eucledSum
+    return euclideanSum

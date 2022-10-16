@@ -80,12 +80,12 @@ class PuzzleSolver:
 
 
 '''Runnable'''
-randomMatrix = generateValidRandomMatrix(15)
-puzzle1 = PuzzleSolver(15, randomMatrix, "h1")
+randomMatrix = generateValidRandomMatrix(24)
+puzzle1 = PuzzleSolver(24, randomMatrix, "h1")
 puzzle1.solve()
 print("------------------")
-puzzle2 = PuzzleSolver(15, randomMatrix, "h2")
+puzzle2 = PuzzleSolver(24, randomMatrix, "h2")
 puzzle2.solve()
 print("--------------------")
-puzzle3 = PuzzleSolver(15, randomMatrix, "h3")
+puzzle3 = PuzzleSolver(24, randomMatrix, "h3")
 puzzle3.solve()
