@@ -4,31 +4,6 @@ from utils.generate import *
 from utils.heuristics import *
 from utils.move import *
 
-DEFAULT_GAME_NOT_SOLVABLE = [[1, 5, 2],
-                             [3, 0, 4],
-                             [6, 7, 8]]
-
-DEFAULT_GAME0 = [[1, 0, 2],
-                 [3, 4, 5],
-                 [6, 7, 8]]
-
-DEFAULT_GAME1 = [[0, 1, 3],
-                 [4, 2, 5],
-                 [7, 8, 6]]
-
-DEFAULT_GAME2 = [[1, 0, 2],
-                 [3, 4, 5],
-                 [6, 7, 8]]
-
-DEFAULT_GAME3 = [[1, 2, 3],
-                 [4, 0, 6],
-                 [7, 5, 8]]
-
-DEFAULT_GAME4 = [[7, 2, 4],
-                 [5, 0, 6],
-                 [8, 3, 1]]
-
-
 '''State class is used to keep track of the states and their values/matrix'''
 
 
@@ -44,12 +19,13 @@ class State:
 
 
 class PuzzleSolver:
-    def __init__(self, size):
+    def __init__(self, size, heuristics):
         self.size = size
         self.solved = generateSolvedMatrix(self.size)
         self.steps = 0  # used to count the number of steps across path
         self.travelledStates = []
         self.availableStates = []
+        self.heuristics = heuristics
 
     def solve(self):
         randomMatrix = generateValidRandomMatrix(self.size)
@@ -100,5 +76,5 @@ class PuzzleSolver:
 
 
 '''Runnable'''
-puzzle = PuzzleSolver(15)
+puzzle = PuzzleSolver(15, h3)
 puzzle.solve()
