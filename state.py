@@ -83,7 +83,7 @@ class PuzzleSolver:
 randomMatrix = generateValidRandomMatrix(24)
 puzzle1 = PuzzleSolver(24, randomMatrix, "h1")
 puzzle1.solve()
-print("------------------")
+print("--------------------")
 puzzle2 = PuzzleSolver(24, randomMatrix, "h2")
 puzzle2.solve()
 print("--------------------")

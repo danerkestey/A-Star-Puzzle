@@ -34,16 +34,6 @@ def h1(state, solved):
 
     return misplacedTiles
 
-    # length = len(state)
-    # misplacedTiles = 0
-    # for i in range(0, length):
-    #     for j in range(0, length):
-    #         if state[i][j] != 0:
-    #             if (state[i][j] != solved[i][j]):
-    #                 misplacedTiles += 1
-
-    # return misplacedTiles
-
 
 def h2(state, solved):
     # by converting the array to an np array we can grab the index of a 2d array with ease

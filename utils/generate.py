@@ -6,19 +6,15 @@ from itertools import chain
 def generateValidRandomMatrix(limit):
     # Generate a valid matrix that can be solved
     mat = generateRandomMatrix(limit)
-    dp = disorderParameter(mat)
     N = len(mat)
 
     if N % 2 == 1:
         while not isSolvable(mat):
             mat = generateRandomMatrix(limit)
-            dp = disorderParameter(mat)
     else:
         while isSolvable(mat):
             mat = generateRandomMatrix(limit)
-            dp = disorderParameter(mat)
 
-    print(dp)
     return mat
 
 
