@@ -26,8 +26,8 @@ def getFValue(state, solved):
 
     
 def heuristic3(state, solved):
-    # This heuristic is the sum of the Eucledean distances of each tile from its goal position
-    # returns the sum of the Eucledean distances of each tile from its goal position
+    # This heuristic is the sum of the Eucledian distances of each tile from its goal position
+    # returns the sum of the Eucledian distances of each tile from its goal position
 
     # by converting the array to an np array we can grab the index of a 2d array with ease
     npStateArray = np.array(state)
