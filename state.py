@@ -19,22 +19,25 @@ class State:
 
 
 class PuzzleSolver:
-    def __init__(self, size, heuristics):
+    def __init__(self, size, matrix, heuristics):
         self.size = size
         self.solved = generateSolvedMatrix(self.size)
         self.steps = 0  # used to count the number of steps across path
         self.travelledStates = []
         self.availableStates = []
         self.heuristics = heuristics
+        self.matrix = matrix
 
     def solve(self):
-        randomMatrix = generateValidRandomMatrix(self.size)
+        randomMatrix = deepcopy(self.matrix)
         initialState = State(randomMatrix, 0, 0)
+        matrix = deepcopy(initialState)
         initialState.fvalue = getFValue(
-            deepcopy(initialState.matrix), self.solved)
+            matrix.matrix, self.solved, self.heuristics, matrix.depth)
 
+        matrix2 = deepcopy(initialState)
         initialState.fvalue = getFValue(
-            deepcopy(initialState.matrix), self.solved)
+            matrix2.matrix, self.solved, self.heuristics, matrix2.depth)
         print("initial state matrix: {}\nfvalue {}\ndepth {}\n".format(
             initialState.matrix, initialState.fvalue, initialState.depth))
 
@@ -53,8 +56,9 @@ class PuzzleSolver:
             possibleMoves = move(currState.matrix)
             for moves in possibleMoves:
                 newState = State(moves, deepcopy(currState).depth+1, 0)
+                matrix = deepcopy(newState)
                 newState.fvalue = getFValue(
-                    deepcopy(newState.matrix), self.solved)
+                    matrix.matrix, self.solved, self.heuristics, matrix.depth)
 
                 # if we have already travelled the state, don't put it in available states.
                 existingState = [
@@ -76,5 +80,12 @@ class PuzzleSolver:
 
 
 '''Runnable'''
-puzzle = PuzzleSolver(15, h3)
-puzzle.solve()
+randomMatrix = generateValidRandomMatrix(15)
+puzzle1 = PuzzleSolver(15, randomMatrix, "h1")
+puzzle1.solve()
+print("------------------")
+puzzle2 = PuzzleSolver(15, randomMatrix, "h2")
+puzzle2.solve()
+print("--------------------")
+puzzle3 = PuzzleSolver(15, randomMatrix, "h3")
+puzzle3.solve()

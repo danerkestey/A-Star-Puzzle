@@ -1,32 +1,16 @@
 import numpy as np
 
 
-def getFValue(state, solved):
-    # by converting the array to an np array we can grab the index of a 2d array with ease
-    npStateArray = np.array(state)
-    npSolvedArray = np.array(solved)
+def getFValue(state, solved, heuristic, depth):
+    if heuristic == "h1":
+        h = h1(state, solved)
+    elif heuristic == "h2":
+        h = h2(state, solved)
+    elif heuristic == "h3":
+        h = h3(state, solved)
 
-    # print(npSolvedArray)
-    manhattanDistances = []
-    misplacedTiles = 0
-
-    for col in range(len(npStateArray[0])):
-        for row in range(len(npStateArray[0])):
-            if npStateArray[col][row] != 0:
-                currPosition = np.argwhere(
-                    npStateArray == npStateArray[col][row])
-                goalPosition = np.argwhere(
-                    npSolvedArray == npStateArray[col][row])
-
-                # formula abs(colcurr - colgoal) + abs(rowcurr - rowgoal)
-                if (abs(currPosition[0][0] - goalPosition[0][0]) + abs(currPosition[0][1] - goalPosition[0][1])) != 0:
-                    misplacedTiles += 1
-
-                manhattanDistances.append(abs(
-                    currPosition[0][0] - goalPosition[0][0]) + abs(currPosition[0][1] - goalPosition[0][1]))
-
-    manhattanValue = sum(manhattanDistances)
-    return manhattanValue + misplacedTiles
+    f = h
+    return f
 
 
 def h1(state, solved):
