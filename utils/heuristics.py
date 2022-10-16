@@ -1,5 +1,6 @@
 import numpy as np
 
+
 def getFValue(state, solved):
 
     #by converting the array to an np array we can grab the index of a 2d array with ease
@@ -25,7 +26,8 @@ def getFValue(state, solved):
     manhattanValue = sum(manhattanDistances)
     return manhattanValue + misplacedTiles
     
-
+def heuristic3():
+    return
 
 #### testing below ####
 """ testState = [[1, 5, 2],
