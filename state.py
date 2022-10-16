@@ -38,8 +38,8 @@ class PuzzleSolver:
         matrix2 = deepcopy(initialState)
         initialState.fvalue = getFValue(
             matrix2.matrix, self.solved, self.heuristics, matrix2.depth)
-        print("initial state matrix: {}\nfvalue {}\ndepth {}\n".format(
-            initialState.matrix, initialState.fvalue, initialState.depth))
+        # print("initial state matrix: {}\nfvalue {}\ndepth {}\n".format(
+        #     initialState.matrix, initialState.fvalue, initialState.depth))
 
         # append the initial state to the available states
         self.availableStates.append(initialState)
@@ -74,18 +74,21 @@ class PuzzleSolver:
             self.availableStates.sort(key=lambda x: x.fvalue, reverse=False)
             self.steps += 1
 
-        print(currState.matrix)
-        print(self.steps)
-        print(len(self.availableStates) + len(self.travelledStates))
+        nodesExpanded = len(self.availableStates) + len(self.travelledStates)
+        if currState.fvalue == 0:
+            return [self.steps, nodesExpanded]
+        # print(currState.matrix)
+        # print(self.steps)
+        # print(len(self.availableStates) + len(self.travelledStates))
 
 
 '''Runnable'''
-randomMatrix = generateValidRandomMatrix(24)
-puzzle1 = PuzzleSolver(24, randomMatrix, "h1")
-puzzle1.solve()
-print("--------------------")
-puzzle2 = PuzzleSolver(24, randomMatrix, "h2")
-puzzle2.solve()
-print("--------------------")
-puzzle3 = PuzzleSolver(24, randomMatrix, "h3")
-puzzle3.solve()
+# randomMatrix = generateValidRandomMatrix(24)
+# puzzle1 = PuzzleSolver(24, randomMatrix, "h1")
+# puzzle1.solve()
+# print("--------------------")
+# puzzle2 = PuzzleSolver(24, randomMatrix, "h2")
+# puzzle2.solve()
+# print("--------------------")
+# puzzle3 = PuzzleSolver(24, randomMatrix, "h3")
+# puzzle3.solve()
