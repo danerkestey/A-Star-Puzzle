@@ -14,6 +14,9 @@ def getFValue(state, solved, heuristic, depth):
 
 
 def h1(state, solved):
+    # This heuristic is the number of tiles out of place
+    # returns the number of tiles out of place
+
     # by converting the array to an np array we can grab the index of a 2d array with ease
     npStateArray = np.array(state)
     npSolvedArray = np.array(solved)
@@ -36,6 +39,9 @@ def h1(state, solved):
 
 
 def h2(state, solved):
+    # This heuristic is the sum of the Manhattan distances of each tile from its goal position
+    # returns the sum of the Manhattan distances of each tile from its goal position
+    
     # by converting the array to an np array we can grab the index of a 2d array with ease
     npStateArray = np.array(state)
     npSolvedArray = np.array(solved)
@@ -54,7 +60,7 @@ def h2(state, solved):
                     currPosition[0][0] - goalPosition[0][0]) + abs(currPosition[0][1] - goalPosition[0][1]))
 
     manhattanValue = sum(manhattanDistances)
-    
+
     return manhattanValue
 
 
