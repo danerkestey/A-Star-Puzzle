@@ -32,13 +32,17 @@ def generateStates(size):
     return {"mat": matrices, "Dataframe": df}
 
 
-# Get 8-puzzle
-first = generateStates(15)
+# Get n-puzzle
+n = 15
+first = generateStates(n)
+
 df = first["Dataframe"]
 df.to_excel('15puzzle.xlsx', sheet_name='sheet1', index=False)
 mat = first["mat"]
+
 for m in mat:
     print(m)
+    
 # print("Puzzle            |          Steps           |        Nodes Expanded    |")
 # print("------------------------------------------------------------------------|")
 # print("                  |   h1   |   h2   |   h3   |   h1   |   h2   |   h3   |")

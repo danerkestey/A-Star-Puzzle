@@ -40,7 +40,6 @@ def h2(state, solved):
     npStateArray = np.array(state)
     npSolvedArray = np.array(solved)
 
-    # print(npSolvedArray)
     manhattanDistances = []
 
     for col in range(len(npStateArray[0])):
@@ -55,6 +54,7 @@ def h2(state, solved):
                     currPosition[0][0] - goalPosition[0][0]) + abs(currPosition[0][1] - goalPosition[0][1]))
 
     manhattanValue = sum(manhattanDistances)
+    
     return manhattanValue
 
 

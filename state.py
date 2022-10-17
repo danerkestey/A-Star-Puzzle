@@ -37,8 +37,6 @@ class PuzzleSolver:
         matrix2 = deepcopy(initialState)
         initialState.fvalue = getFValue(
             matrix2.matrix, self.solved, self.heuristics, matrix2.depth)
-        # print("initial state matrix: {}\nfvalue {}\ndepth {}\n".format(
-        #     initialState.matrix, initialState.fvalue, initialState.depth))
 
         # append the initial state to the available states
         self.availableStates.append(initialState)
@@ -48,8 +46,6 @@ class PuzzleSolver:
 
             if currState.fvalue == 0:  # if the f value is 0 we are done
                 break
-
-            # print(currState.matrix)
 
             # get all next states and append new state objects to the availableStates list
             possibleMoves = move(currState.matrix)
@@ -62,6 +58,7 @@ class PuzzleSolver:
                 # if we have already travelled the state, don't put it in available states.
                 existingState = [
                     state for state in self.travelledStates if state.matrix == newState.matrix]
+
                 if len(existingState) == 0:
                     self.availableStates.append(newState)
 
@@ -74,13 +71,11 @@ class PuzzleSolver:
             self.steps += 1
 
         nodesExpanded = len(self.availableStates) + len(self.travelledStates)
+
         return [self.steps, nodesExpanded]
-        # print(currState.matrix)
-        # print(self.steps)
-        # print(len(self.availableStates) + len(self.travelledStates))
 
 
-'''Runnable'''
+'''Temp Runnable Tests'''
 # randomMatrix = generateValidRandomMatrix(24)
 # puzzle1 = PuzzleSolver(24, randomMatrix, "h1")
 # puzzle1.solve()
