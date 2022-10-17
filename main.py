@@ -37,5 +37,5 @@ n = 24
 states = generateStates(n)
 
 df = states["dataframe"]
-df.to_excel('15puzzle3.xlsx', sheet_name='sheet1', index=False)
+df.to_excel('24puzzle3.xlsx', sheet_name='sheet1', index=False)
 mat = states["mat"]
