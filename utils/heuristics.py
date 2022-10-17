@@ -61,6 +61,7 @@ def h2(state, solved):
 def h3(state, solved):
     # This heuristic is the sum of the Eucledian distances of each tile from its goal position
     # returns the sum of the Eucledian distances of each tile from its goal position
+    # This is done by taking the sqrt of each move squared ex: tile moved 1 right 1 down = sqrt(1^2 + 1^2) = sqrt(2)
 
     # by converting the array to an np array we can grab the index of a 2d array with ease
     npStateArray = np.array(state)
