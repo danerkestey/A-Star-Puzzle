@@ -14,5 +14,6 @@ Each heuristic is more efficient then the previous, with sum of euclidean being 
 - [Chandler Mayberry](https://github.com/mainmanchandler)<br/>
 - [Nish Tewari](https://github.com/NishTewari)<br/>
 - [Daner Yasin](https://github.com/danerkestey)<br/>
-- [Yvonne Lalkovic](https://github.com/lalkovicy)<br/>
-- [Saif Al-Din Ali](https://github.com/saifaldin14)
+- [Saif Al-Din Ali](https://github.com/saifaldin14)<br/>
+- [Yvonne Lalkovic](https://github.com/lalkovicy)
+
