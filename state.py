@@ -9,7 +9,6 @@ from utils.move import *
 
 class State:
     def __init__(self, matrix, depth, fvalue):
-        # init the each state that has its matrix, current tree depth and fvalue
         self.matrix = matrix
         self.depth = depth
         self.fvalue = fvalue
@@ -22,7 +21,7 @@ class PuzzleSolver:
     def __init__(self, size, matrix, heuristics):
         self.size = size
         self.solved = generateSolvedMatrix(self.size)
-        self.steps = 0  # used to count the number of steps across path
+        self.steps = 0
         self.travelledStates = []
         self.availableStates = []
         self.heuristics = heuristics
@@ -75,8 +74,7 @@ class PuzzleSolver:
             self.steps += 1
 
         nodesExpanded = len(self.availableStates) + len(self.travelledStates)
-        if currState.fvalue == 0:
-            return [self.steps, nodesExpanded]
+        return [self.steps, nodesExpanded]
         # print(currState.matrix)
         # print(self.steps)
         # print(len(self.availableStates) + len(self.travelledStates))
