@@ -33,9 +33,9 @@ def generateStates(size):
 
 
 # Get 8-puzzle
-first = generateStates(24)
+first = generateStates(15)
 df = first["Dataframe"]
-df.to_excel('24puzzle.xlsx', sheet_name='sheet1', index=False)
+df.to_excel('15puzzle.xlsx', sheet_name='sheet1', index=False)
 mat = first["mat"]
 for m in mat:
     print(m)
