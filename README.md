@@ -1,13 +1,14 @@
 <h1 align="center">A-Star-Puzzle 🌟</h1>
 Implementing the A* Algorithm to solve n-Puzzle problem.
-\
+
+
 The 3 heuristics in use:
 - Number of Misplaced Tiles
 - Sum of Manhattan Distance
 - Sum of Euclidean distance
-\
+
 Each heuristic is more efficient then the previous, with sum of euclidean being the most efficient.
-\
+
 ## Contributors
 
 - [Chandler Mayberry](https://github.com/mainmanchandler)<br/>
