@@ -10,7 +10,7 @@ def generateStates(size):
     h1S, h2S, h3S, h1N, h2N, h3N = [], [], [], [], [], []
     count = 0
 
-    while count != 10:
+    while count != 100:
         randomMatrix = generateValidRandomMatrix(size)
         puzzle1 = PuzzleSolver(size, randomMatrix, "h1").solve()
         puzzle2 = PuzzleSolver(size, randomMatrix, "h2").solve()
