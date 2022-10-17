@@ -10,7 +10,7 @@ def generateStates(size):
     h1S, h2S, h3S, h1N, h2N, h3N = [], [], [], [], [], []
     count = 0
 
-    while count != 100:
+    while count != 2:
         randomMatrix = generateValidRandomMatrix(size)
         puzzle1 = PuzzleSolver(size, randomMatrix, "h1").solve()
         puzzle2 = PuzzleSolver(size, randomMatrix, "h2").solve()
@@ -29,31 +29,13 @@ def generateStates(size):
     df = DataFrame({'Steps h1': h1S, 'Steps h2': h2S, 'Steps h3': h3S,
                    'Nodes h1': h1N, 'Nodes h2': h2N, 'Nodes h3': h3N, })
 
-    return {"mat": matrices, "Dataframe": df}
+    return {"mat": matrices, "dataframe": df}
 
 
 # Get n-puzzle
-n = 15
-first = generateStates(n)
+n = 24
+states = generateStates(n)
 
-df = first["Dataframe"]
-df.to_excel('15puzzle.xlsx', sheet_name='sheet1', index=False)
-mat = first["mat"]
-
-for m in mat:
-    print(m)
-    
-# print("Puzzle            |          Steps           |        Nodes Expanded    |")
-# print("------------------------------------------------------------------------|")
-# print("                  |   h1   |   h2   |   h3   |   h1   |   h2   |   h3   |")
-# print("------------------------------------------------------------------------|")
-# for i in range(100):
-#     matrix = first["matrices"][i]
-#     step = first["steps"][i]
-#     node = first["nodes"][i]
-#     # print("{}             |   {}   |   {}   |   {}   |   {}   |   {}   |   {}   |".format(
-#     #     matrix, step[0], step[1], step[2], node[0], node[1], node[2]))
-#     # print("------------------------------------------------------------------------|")
-#     print("{}   {}   {}   {}   {}   {}   {} ".format(
-#         matrix, step[0], step[1], step[2], node[0], node[1], node[2]))
-#     print("------------------------------------------------------------------------|")
+df = states["dataframe"]
+df.to_excel('15puzzle3.xlsx', sheet_name='sheet1', index=False)
+mat = states["mat"]

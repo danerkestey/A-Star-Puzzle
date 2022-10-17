@@ -30,13 +30,9 @@ class PuzzleSolver:
     def solve(self):
         randomMatrix = deepcopy(self.matrix)
         initialState = State(randomMatrix, 0, 0)
-        matrix = deepcopy(initialState)
+        state = deepcopy(initialState)
         initialState.fvalue = getFValue(
-            matrix.matrix, self.solved, self.heuristics, matrix.depth)
-
-        matrix2 = deepcopy(initialState)
-        initialState.fvalue = getFValue(
-            matrix2.matrix, self.solved, self.heuristics, matrix2.depth)
+            state.matrix, self.solved, self.heuristics, state.depth)
 
         # append the initial state to the available states
         self.availableStates.append(initialState)
@@ -50,7 +46,7 @@ class PuzzleSolver:
             # get all next states and append new state objects to the availableStates list
             possibleMoves = move(currState.matrix)
             for moves in possibleMoves:
-                newState = State(moves, deepcopy(currState).depth+1, 0)
+                newState = State(moves, deepcopy(currState).depth + 1, 0)
                 matrix = deepcopy(newState)
                 newState.fvalue = getFValue(
                     matrix.matrix, self.solved, self.heuristics, matrix.depth)
@@ -71,17 +67,6 @@ class PuzzleSolver:
             self.steps += 1
 
         nodesExpanded = len(self.availableStates) + len(self.travelledStates)
-
-        return [self.steps, nodesExpanded]
-
-
-'''Temp Runnable Tests'''
-# randomMatrix = generateValidRandomMatrix(24)
-# puzzle1 = PuzzleSolver(24, randomMatrix, "h1")
-# puzzle1.solve()
-# print("--------------------")
-# puzzle2 = PuzzleSolver(24, randomMatrix, "h2")
-# puzzle2.solve()
-# print("--------------------")
-# puzzle3 = PuzzleSolver(24, randomMatrix, "h3")
-# puzzle3.solve()
+        # print("Heuristic: {}, depth: {}".format(
+        #     self.heuristics, self.availableStates[0].depth))
+        return [self.availableStates[0].depth, nodesExpanded]
