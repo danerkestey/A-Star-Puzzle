@@ -15,21 +15,10 @@ def generateStates(size):
     while count != 100:
         randomMatrix = generateValidRandomMatrix(size)
         puzzle1 = PuzzleSolver(size, randomMatrix, "h1").solve()
-
-        if not puzzle1:
-            continue
-
         puzzle2 = PuzzleSolver(size, randomMatrix, "h2").solve()
-
-        if not puzzle2:
-            continue
-
         puzzle3 = PuzzleSolver(size, randomMatrix, "h3").solve()
 
-        if not puzzle3:
-            continue
-
-        if puzzle1 and puzzle2 and puzzle3:
+        if puzzle3:
             matrices.append(randomMatrix)
             currSteps = [puzzle1[0], puzzle2[0], puzzle3[0]]
             h1S.append(puzzle1[0])

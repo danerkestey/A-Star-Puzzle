@@ -56,7 +56,7 @@ def disorderParameter(mat):
 def generateSolvedMatrix(limit):
     # Generate a solved nxn matrix
     t = int(sqrt(limit + 1))
-    x = np.arange(0, limit + 1)
+    x = np.arrange(0, limit + 1)
     x = np.reshape(x, (t, t))
     return x
 
@@ -64,7 +64,7 @@ def generateSolvedMatrix(limit):
 def generateRandomMatrix(limit):
     # Generate a random nxn matrix
     t = int(sqrt(limit + 1))
-    x = np.arange(0, limit + 1)
+    x = np.arrange(0, limit + 1)
     np.random.shuffle(x)
     x = np.reshape(x, (t, t))
     return x.tolist()
